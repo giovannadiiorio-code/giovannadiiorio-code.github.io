@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rotta — Gestionale vendita barche a vela</title>
+<meta name="description" content="Rotta: SaaS per cantieri e broker. Gestione barche a vela, lead, trattative, vendite e appuntamenti. Trova la tua prossima rotta.">
+<meta property="og:title" content="Rotta — Trova la tua prossima rotta">
+<meta property="og:description" content="Gestionale nautico premium: barche, CRM, vendite e report.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛵</text></svg>">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Rotta Yacht Broker","description":"Vendita barche a vela"}</script>
+</head>
+<body>
+<a class="skip" href="#main">Salta al contenuto</a>
+
+<!-- ============ AREA PUBBLICA ============ -->
+<div id="pub">
+<header class="topnav"><div class="topnav-inner">
+<a class="logo" href="#/home"><span class="logo-mark">⛵</span> Rotta</a>
+<button class="iconbtn" id="mnav" aria-label="Apri menu" onclick="document.getElementById('mlinks').style.display=document.getElementById('mlinks').style.display==='flex'?'none':'flex'" style="display:none">☰</button>
+<nav class="navlinks" id="mlinks" aria-label="Navigazione principale">
+<a data-nav href="#/home">Home</a><a data-nav href="#/catalogo">Catalogo</a><a data-nav href="#/contatti">Contatti</a><a data-nav href="#/login" class="btn small">Area riservata</a>
+</nav></div></header>
+
+<main id="main">
+<!-- HOME -->
+<section class="view" data-view="home">
+<div class="hero"><div class="hero-inner">
+<div><span class="kicker">Yacht broker · dal 2008</span>
+<h1>Trova la tua prossima rotta.</h1>
+<p>Selezione premium di barche a vela verificate, perizie trasparenti e broker dedicati in 10 marine italiane.</p>
+<div class="hero-cta"><a class="btn light" href="#/catalogo">Scopri le barche</a><a class="btn ghost" href="#/contatti">Contattaci</a></div></div>
+<div class="hero-card"><h3 style="margin:.2rem 0;color:var(--oceano)">Ricerca rapida</h3>
+<input id="hq" placeholder="Cerca cantiere, modello, località…" aria-label="Ricerca rapida" oninput="document.getElementById('fq2').value=this.value">
+<div class="toolbar"><select id="fq2" aria-label="Filtro"><option value="">Tutte le località</option></select><a class="btn" href="#/catalogo">Cerca</a></div>
+<p class="small muted">Oppure sfoglia il <a href="#/catalogo">catalogo completo</a>.</p></div>
+</div></div>
+<div class="wrap">
+<div class="stats">
+<div class="stat"><b id="kpi-boats">–</b><br><span>Barche disponibili</span></div>
+<div class="stat"><b id="kpi-sold">–</b><br><span>Vendute quest'anno</span></div>
+<div class="stat"><b id="kpi-value">–</b><br><span>Valore inventario</span></div>
+<div class="stat"><b id="kpi-leads">–</b><br><span>Lead attivi</span></div>
+</div>
+<section class="block"><h2 class="h2">Barche in evidenza</h2><p class="sub">Selezionate dai nostri broker.</p><div class="grid cols-3" id="home-ev"></div></section>
+<section class="block"><h2 class="h2">Ultime arrivate</h2><p class="sub">Le novità in marina.</p><div class="grid cols-3" id="home-last"></div></section>
+<section class="block"><div class="grid cols-3">
+<div class="card card-pad"><h3>🔍 Perizie verificate</h3><p class="muted">Ogni barca è ispezionata: scafo, rigging, motore e documenti.</p></div>
+<div class="card card-pad"><h3>🤝 Broker dedicato</h3><p class="muted">Trattative trasparenti, prova in mare e assistenza post-vendita.</p></div>
+<div class="card card-pad"><h3>📄 Pratiche incluse</h3><p class="muted">Passaggio, assicurazione e ormeggio gestiti per te.</p></div>
+</div></section>
+<section class="block"><div class="card card-pad"><h2 class="h2">Dicono di noi</h2>
+<p>“Abbiamo comprato un Oceanis 46 in tre settimane, tutto perfetto.” — <b>Famiglia Riva, Genova</b></p>
+<p>“Vendita rapida al giusto prezzo, report sempre chiari.” — <b>Marco T., Olbia</b></p></div></section>
+</div></section>
+
+<!-- CATALOGO -->
+<section class="view" data-view="catalogo"><div class="wrap block">
+<h2 class="h2">Catalogo barche</h2><p class="sub" id="cat-count"></p>
+<div class="toolbar" role="search">
+<input id="f-q" placeholder="Cerca nome, cantiere, modello…" aria-label="Cerca" oninput="renderCatalogo()">
+<select id="f-cant" aria-label="Cantiere" onchange="renderCatalogo()"><option value="">Tutti i cantieri</option></select>
+<select id="f-loc" aria-label="Località" onchange="renderCatalogo()"><option value="">Tutte le località</option></select>
+<select id="f-prezzo" aria-label="Prezzo max" onchange="renderCatalogo()"><option value="0">Qualsiasi prezzo</option><option value="100000">≤ 100k</option><option value="200000">≤ 200k</option><option value="350000">≤ 350k</option></select>
+<select id="f-anno" aria-label="Anno min" onchange="renderCatalogo()"><option value="0">Qualsiasi anno</option><option value="2018">Dal 2018</option><option value="2020">Dal 2020</option><option value="2022">Dal 2022</option></select>
+</div><div class="grid cols-3" id="cat-list"></div></div></section>
+
+<!-- DETTAGLIO -->
+<section class="view" data-view="dettaglio"><div class="wrap block"><a href="#/catalogo">← Torna al catalogo</a><div id="det" style="margin-top:1rem"></div></div></section>
+
+<!-- CONTATTI -->
+<section class="view" data-view="contatti"><div class="wrap block">
+<h2 class="h2">Contattaci</h2><p class="sub">Rispondiamo entro 24h lavorative.</p>
+<div class="grid cols-2"><form class="card card-pad" onsubmit="event.preventDefault();toast('Messaggio inviato!');notify('Nuovo messaggio da contatti')">
+<label>Nome<input required></label><label>Email<input type="email" required></label><label>Messaggio<textarea rows="4" required></textarea></label>
+<button class="btn" type="submit">Invia messaggio</button></form>
+<div class="card card-pad"><h3>Marine</h3><p class="muted">Genova · La Spezia · Livorno · Napoli · Olbia · Palermo · Venezia</p><p>📞 +39 010 000 000<br>✉️ info@rotta.example</p></div></div></div></section>
+
+<!-- LOGIN -->
+<section class="view" data-view="login"><div class="wrap block" style="max-width:480px">
+<div class="card card-pad"><h2 class="h2">Accedi</h2><p class="sub">Demo GitHub Pages — tutto in locale.</p>
+<form onsubmit="doLogin(event)"><label>Email<input id="li-email" value="admin@rotta.it" required></label>
+<label>Password<input id="li-pass" type="password" value="admin123" required></label>
+<p class="small muted">admin@rotta.it / admin123 · broker@rotta.it / broker123 · collab@rotta.it / collab123</p>
+<p id="li-err" style="color:var(--danger)"></p><button class="btn" type="submit" style="width:100%">Entra in dashboard</button></form></div>
+</div></section>
+</main>
+<footer><div class="wrap">© <span id="year"></span> Rotta Yacht Broker · <a href="sitemap.xml">Sitemap</a> · <a href="robots.txt">Robots</a> · Demo statica per GitHub Pages (dati in localStorage).</div></footer>
+</div>
+
+<!-- ============ APP GESTIONALE ============ -->
+<div id="app" class="app">
+<div class="shell">
+<aside class="sidebar" aria-label="Menu gestionale">
+<a class="logo" href="#/dashboard" style="color:#fff"><span class="logo-mark" style="background:#fff">⛵</span> Rotta Admin</a>
+<div style="margin-top:1rem" id="side-links">
+<a data-nav href="#/dashboard">📊 Dashboard</a><a data-nav href="#/barche">⛵ Barche</a><a data-nav href="#/clienti">👥 Clienti</a><a data-nav href="#/lead">📈 Lead</a><a data-nav href="#/trattative">🤝 Trattative</a><a data-nav href="#/appuntamenti">📅 Appuntamenti</a><a data-nav href="#/vendite">💰 Vendite</a><a data-nav href="#/documenti">📄 Documenti</a><a data-nav href="#/report">📉 Report</a><a data-nav href="#/impostazioni" data-role-admin>⚙️ Impostazioni</a>
+<a href="#/home">🌍 Sito pubblico</a><a href="#" onclick="logout()">⏻ Esci</a>
+</div></aside>
+<div>
+<div class="topbar">
+<button class="iconbtn" aria-label="Menu" onclick="document.getElementById('drawer').classList.add('on')">☰</button>
+<input class="search" placeholder="🔍 Ricerca barche, clienti, lead…" aria-label="Ricerca globale" oninput="globalSearch(this.value)">
+<div class="notif-wrap"><button class="iconbtn" aria-label="Notifiche" onclick="document.getElementById('notif-list').classList.toggle('on')">🔔<span id="notif-n" class="badge" style="display:none"></span></button>
+<div class="notif-drop" id="notif-list"></div></div>
+<span id="who" class="small muted"></span>
+</div>
+<div id="gs-res" class="panel" style="display:none;margin:1rem"></div>
+<main class="main">
+<section class="view" data-view="dashboard"><h2 class="h2">Dashboard</h2><div class="kpis" id="d-kpi"></div>
+<div class="panels two"><div class="panel"><h3>Vendite nel tempo</h3><canvas class="chart" id="ch-sales"></canvas></div>
+<div class="panel"><h3>Inventario per stato</h3><canvas class="chart" id="ch-inv"></canvas></div></div>
+<div class="panels two"><div class="panel"><h3>Lead per stato</h3><canvas class="chart" id="ch-lead"></canvas></div>
+<div class="panel"><h3>Prossimi appuntamenti</h3><div id="d-apps"></div><h3 style="margin-top:1rem">Attività recenti</h3><div id="d-act"></div></div></div></section>
+
+<section class="view" data-view="barche"><h2 class="h2">Barche</h2>
+<div class="toolbar"><input id="b-q" placeholder="Cerca…" oninput="renderBoatsAdmin()" aria-label="Cerca barche">
+<select id="b-stato" onchange="renderBoatsAdmin()" aria-label="Stato"><option value="">Tutti gli stati</option><option>Disponibile</option><option>In trattativa</option><option>Prenotata</option><option>Venduta</option><option>Sospesa</option></select>
+<button class="btn" onclick="editBoat()">+ Nuova barca</button><span class="muted small" id="boats-n"></span></div>
+<div class="table-wrap"><table><thead><tr><th>Barca</th><th>Anno</th><th>Prezzo</th><th>Località</th><th>Stato</th><th>Azioni</th></tr></thead><tbody id="boats-t"></tbody></table></div></section>
+
+<section class="view" data-view="clienti"><h2 class="h2">Clienti</h2>
+<div class="toolbar"><input id="c-q" placeholder="Cerca clienti…" oninput="renderCustomers()" aria-label="Cerca clienti"></div>
+<div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Città</th><th>Budget</th><th>Responsabile</th><th>Azioni</th></tr></thead><tbody id="cust-t"></tbody></table></div></section>
+
+<section class="view" data-view="lead"><h2 class="h2">Lead — Kanban</h2><p class="sub">Trascina le card tra le colonne.</p><div class="kanban" id="kanban"></div></section>
+
+<section class="view" data-view="trattative"><h2 class="h2">Trattative</h2>
+<div class="table-wrap"><table><thead><tr><th>Cliente / Barca</th><th>Richiesto</th><th>Offerto</th><th>Controproposta</th><th>Stato</th><th></th></tr></thead><tbody id="deals-t"></tbody></table></div></section>
+
+<section class="view" data-view="appuntamenti"><h2 class="h2">Appuntamenti</h2>
+<div class="toolbar"><button class="btn small ghost" onclick="calNav(-1)">←</button><b id="cal-title"></b><button class="btn small ghost" onclick="calNav(1)">→</button>
+<button class="btn small light" onclick="calModeSet('mese')">Mese</button><button class="btn small light" onclick="calModeSet('lista')">Lista</button>
+<button class="btn" onclick="newApp()">+ Nuovo</button></div><div id="cal"></div></section>
+
+<section class="view" data-view="vendite"><h2 class="h2">Vendite</h2>
+<div class="toolbar"><button class="btn ghost" onclick="exportCSV()">⬇ Export CSV</button><span class="muted small" id="sales-tot"></span></div>
+<div class="table-wrap"><table><thead><tr><th>Data</th><th>Barca</th><th>Cliente</th><th>Prezzo</th><th>Commiss.</th><th>Broker</th></tr></thead><tbody id="sales-t"></tbody></table></div></section>
+
+<section class="view" data-view="documenti"><h2 class="h2">Documenti</h2>
+<div class="table-wrap"><table><thead><tr><th>Nome</th><th>Barca</th><th>Tipo</th><th>Scadenza</th></tr></thead><tbody id="docs-t"></tbody></table></div></section>
+
+<section class="view" data-view="report"><h2 class="h2">Report</h2><div class="kpis" id="rep-kpi"></div>
+<div class="panel" style="margin-top:1rem"><h3>Fatturato mensile</h3><canvas class="chart" id="ch-rep"></canvas></div>
+<div class="toolbar"><button class="btn ghost" onclick="exportCSV()">⬇ Export vendite CSV</button></div></section>
+
+<section class="view" data-view="impostazioni"><h2 class="h2">Impostazioni</h2><div class="panel" id="set-box"></div></section>
+</main></div></div>
+<div class="drawer" id="drawer"><div class="drawer-bg" onclick="document.getElementById('drawer').classList.remove('on')"></div>
+<nav class="drawer-panel" aria-label="Menu mobile" onclick="document.getElementById('drawer').classList.remove('on')">
+<h3 style="color:#fff">⛵ Rotta</h3>
+<a data-nav href="#/dashboard">📊 Dashboard</a><a data-nav href="#/barche">⛵ Barche</a><a data-nav href="#/clienti">👥 Clienti</a><a data-nav href="#/lead">📈 Lead</a><a data-nav href="#/trattative">🤝 Trattative</a><a data-nav href="#/appuntamenti">📅 Appuntamenti</a><a data-nav href="#/vendite">💰 Vendite</a><a data-nav href="#/documenti">📄 Documenti</a><a data-nav href="#/report">📉 Report</a><a data-nav href="#/impostazioni">⚙️ Impostazioni</a><a href="#/home">🌍 Sito pubblico</a>
+</nav></div>
+</div>
+
+<div class="modal-bg" id="modal"><div class="modal" id="modal-box" role="dialog" aria-modal="true"></div></div>
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('on')"><img alt="Foto barca ingrandita"></div>
+<div id="toasts" aria-live="polite"></div>
+<div id="gs-res2"></div>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+// popola filtri catalogo + nome utente
+window.addEventListener("load",()=>{
+  const c=[...new Set((JSON.parse(localStorage.getItem("rotta_state_v1")||"{}").boats||[]).map(b=>b.cantiere))];
+  const sc=document.getElementById("f-cant");c.forEach(x=>{const o=document.createElement("option");o.textContent=x;sc.appendChild(o)});
+  const l=[...new Set((JSON.parse(localStorage.getItem("rotta_state_v1")||"{}").boats||[]).map(b=>b.localita))];
+  const sl=document.getElementById("f-loc"),q2=document.getElementById("fq2");l.forEach(x=>{const o=document.createElement("option");o.textContent=x;sl.appendChild(o.cloneNode(true));const o2=document.createElement("option");o2.textContent=x;q2.appendChild(o2)});
+  if(innerWidth<960)document.getElementById("mnav").style.display="";
+  setInterval(()=>{const s=JSON.parse(localStorage.getItem("rotta_state_v1")||"{}").session;const w=document.getElementById("who");if(w&&s)w.textContent="👤 "+s.nome+" ("+s.ruolo+")"},500);
+});
+</script>
+</body>
+</html>
